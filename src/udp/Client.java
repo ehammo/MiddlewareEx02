@@ -13,7 +13,8 @@ public class Client {
 	
 	public static void main(String[] args) {
 		String host = "127.0.0.1";
-		int port = 2004;
+		int portSend = 2004;
+		int portReceive = 2005;
 		try {
 			DatagramSocket socket = new DatagramSocket();
 			byte[] sendData = new byte[1024];
@@ -25,11 +26,11 @@ public class Client {
 				String in = scan.nextLine()+"\n";
 				sendData = in.getBytes();
 				DatagramPacket sendPacket = new DatagramPacket(sendData,
-						sendData.length, IPAddress, port);
+						sendData.length, IPAddress, portSend);
 				socket.send(sendPacket);
 				System.out.println("Message sent. Waiting for server response.");
 				DatagramPacket receivePacket = new DatagramPacket(receiveData,
-						receiveData.length);
+						receiveData.length, IPAddress, portReceive);
 				socket.receive(receivePacket);
 				
 				System.out.println(new String(receivePacket.getData()));
