@@ -27,12 +27,14 @@ public class Server {
         	String[] command = socketIn.readLine().split(" ");
         	if (command[0].equals("add")) {
         		estoque.add(command[1]);
-        		out = "Added with Sucess";
+        		out = "Added with Sucess\n";
         	} else if(command[0].equals("remove")){
         		estoque.remove(command[1]);
-        		out = "Added with Sucess";
+        		out = "Removed with Sucess\n";
+        	} else if(command[0].equals("list")){
+        		out = estoque.getAll()+"n";
         	} else {
-        		out = "Invalid command. Use 'add' or 'remove' \n";
+        		out = "Invalid command. Use 'add', 'remove' or 'list' \n";
         	}
         	
         	DataOutputStream socketOut = new DataOutputStream(sock.getOutputStream());

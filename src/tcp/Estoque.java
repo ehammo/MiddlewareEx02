@@ -14,6 +14,16 @@ public class Estoque {
     	modify(item, false);
     }
     
+    public String getAll() {
+    	StringBuilder sb = new StringBuilder();
+    	for(String item : estoque.keySet()){
+    		sb.append(item)
+    			.append(" ")
+    			.append(estoque.get(item));
+    	}
+    	return sb.toString();
+    }
+    
     private void modify(String item, boolean positive) {
     	int qtd = estoque.getOrDefault(item, 0);
     	if(positive)
