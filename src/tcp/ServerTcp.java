@@ -1,17 +1,14 @@
 package tcp;
-import java.util.List;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
 import tcp.Estoque;
 
 
-public class Server {
+public class ServerTcp {
     public static void main(String[] args) throws IOException {
          
         int portNumber = 2004;
@@ -26,6 +23,7 @@ public class Server {
     	DataOutputStream socketOut = new DataOutputStream(sock.getOutputStream());
     	while (true){
     		while (!socketIn.ready());
+        	System.out.println("Socket ready");
         	String[] command = socketIn.readLine().split(" ");
         	System.out.println("Data received.");
         	if (command[0].equals("add")) {
