@@ -26,23 +26,22 @@ public class ClientTcp {
 		socketOut.writeBytes(in);
 		System.out.println("Message sent. Waiting for server response.");
 		System.out.println(socketIn.readLine());
-		System.out.println("Message received ?");
 	}
 	
 	public void add(String item) throws IOException {
-		sendInfo("add "+item);
+		sendInfo("add "+item+"\n");
 	}
 	
 	public void remove(String item) throws IOException {
-		sendInfo("remove "+item);
+		sendInfo("remove "+item+"\n");
 	}
 	
 	public void list(String item) throws IOException {
-		sendInfo("list "+item);
+		sendInfo("list "+item+"\n");
 	}
 	
 	public void custom(String command) throws IOException {
-		sendInfo(command);
+		sendInfo(command+"\n");
 	}
 	
 	
