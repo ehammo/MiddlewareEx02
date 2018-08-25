@@ -32,7 +32,7 @@ public class Server {
         		estoque.remove(command[1]);
         		out = "Removed with Sucess\n";
         	} else if(command[0].equals("list")){
-        		out = estoque.getAll()+"n";
+        		out = estoque.getAll()+"\n";
         	} else {
         		out = "Invalid command. Use 'add', 'remove' or 'list' \n";
         	}
