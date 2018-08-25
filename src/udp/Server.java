@@ -1,4 +1,4 @@
-package tcp;
+package udp;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

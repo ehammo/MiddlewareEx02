@@ -1,4 +1,4 @@
-package tcp;
+package udp;
 
 import java.lang.StringBuilder;
 import java.util.HashMap;

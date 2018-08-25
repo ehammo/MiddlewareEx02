@@ -13,17 +13,16 @@ public class Client {
 		int port = 2004;
 		try {
 			Socket socket = new Socket(host,port);
+			DataOutputStream socketOut = new DataOutputStream(
+												socket.getOutputStream());
+			BufferedReader socketIn = new BufferedReader(new InputStreamReader(
+					socket.getInputStream()));
 			while(true) {
 				Scanner scan = new Scanner(System.in);
 				String in = scan.nextLine()+"\n";
-					
-				DataOutputStream socketOut = new DataOutputStream(
-													socket.getOutputStream());
 				socketOut.writeBytes(in);
 				System.out.println("Message sent. Waiting for server response.");
-				BufferedReader socketIn = new BufferedReader(new InputStreamReader(
-											socket.getInputStream()));
-				System.out.println(socketIn.readLine());	    
+				System.out.println(socketIn.readLine());
 			}
 		} catch (Exception e) {
 			//e.printStackTrace();
