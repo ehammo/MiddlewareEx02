@@ -5,7 +5,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import udp.Estoque;
 
-public class Server {
+public class ServerUdp {
     public static void main(String[] args) throws IOException {
          
     	

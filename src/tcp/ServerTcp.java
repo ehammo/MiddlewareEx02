@@ -11,7 +11,7 @@ import java.util.HashMap;
 import tcp.Estoque;
 
 
-public class Server {
+public class ServerTcp {
     public static void main(String[] args) throws IOException {
          
         int portNumber = 2004;
