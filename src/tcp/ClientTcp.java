@@ -24,8 +24,8 @@ public class ClientTcp {
 	
 	private void sendInfo(String in) throws IOException {
 		socketOut.writeBytes(in);
-		System.out.println("Message sent. Waiting for server response.");
-		System.out.println(socketIn.readLine());
+		//System.out.println("Message sent. Waiting for server response.");
+		//System.out.println(socketIn.readLine());
 	}
 	
 	public void add(String item) throws IOException {

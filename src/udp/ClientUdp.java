@@ -1,14 +1,60 @@
 package udp;
+
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Scanner;
 
 public class ClientUdp {
-	
-	public static void main(String[] args) {
-		String host = "127.0.0.1";
-		int port = 2004;
+    int port;
+    String host;
+    DatagramSocket socket;
+    InetAddress ipAddress;
+    byte[] sendData = new byte[1024];
+    byte[] receiveData = new byte[1024];
+
+    public ClientUdp(String host, int port) {
+        try {
+            this.host = host;
+            this.port = port;
+            socket = new DatagramSocket();
+            ipAddress = InetAddress.getByName(host);
+        } catch (Exception e) {
+            System.out.println("Connection Failed");
+        }
+    }
+
+    private void sendInfo(String item) throws IOException {
+        sendData = item.getBytes();
+        DatagramPacket sendPacket = new DatagramPacket(sendData,
+                sendData.length, ipAddress, port);
+        socket.send(sendPacket);
+        DatagramPacket receivePacket = new DatagramPacket(receiveData,
+                receiveData.length);
+        socket.receive(receivePacket);
+    }
+
+    public void add(String item) throws IOException {
+        sendInfo("add "+item+"\n");
+    }
+
+    public void remove(String item) throws IOException {
+        sendInfo("remove "+item+"\n");
+    }
+
+    public void list(String item) throws IOException {
+        sendInfo("list "+item+"\n");
+    }
+
+    public void custom(String command) throws IOException {
+        sendInfo(command+"\n");
+    }
+
+	/*public static void main(String[] args) {
+
+        int port = 2004;
+        String host = "127.0.0.1";
 		try {
 			DatagramSocket socket = new DatagramSocket();
 			byte[] sendData = new byte[1024];
@@ -33,5 +79,5 @@ public class ClientUdp {
 			//e.printStackTrace();
 			System.out.println("Connection Failed");
 		}
-	}
+	}*/
 }
