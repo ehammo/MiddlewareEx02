@@ -7,8 +7,6 @@ import udp.Estoque;
 
 public class ServerUdp {
     public static void main(String[] args) throws IOException {
-         
-    	
 		int port = 2004;
         
         String in,out;
