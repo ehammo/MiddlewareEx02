@@ -8,7 +8,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class ClientTcp {
+import analise.IClient;
+
+public class ClientTcp implements IClient {
 	
 	private Socket socket;
 	private DataOutputStream socketOut;
@@ -36,8 +38,8 @@ public class ClientTcp {
 		sendInfo("remove "+item+"\n");
 	}
 	
-	public void list(String item) throws IOException {
-		sendInfo("list "+item+"\n");
+	public void list() throws IOException {
+		sendInfo("list "+"\n");
 	}
 	
 	public void custom(String command) throws IOException {

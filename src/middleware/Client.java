@@ -6,7 +6,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
-public class Client {
+import analise.IClient;
+
+public class Client implements IClient {
 	
 	private IEstoque server;
 	
@@ -29,7 +31,7 @@ public class Client {
 		System.out.println("Response = "+message);
 	}
 	
-	public void getAll() throws RemoteException {
+	public void list() throws RemoteException {
 		String message = server.getAll();
 		System.out.println("Response = "+message);
 	}
@@ -46,7 +48,7 @@ public class Client {
         	} else if(command[0].equals("remove")){
         		client.remove(command[1]);
         	} else if(command[0].equals("list")){
-        		client.getAll();
+        		client.list();
         	} else {
         		System.out.println(
         				"Invalid command. Use 'add', 'remove' or 'list' \n");

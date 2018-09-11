@@ -6,7 +6,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Scanner;
 
-public class ClientUdp {
+import analise.IClient;
+
+public class ClientUdp implements IClient  {
     int port;
     String host;
     DatagramSocket socket;
@@ -43,8 +45,8 @@ public class ClientUdp {
         sendInfo("remove "+item+"\n");
     }
 
-    public void list(String item) throws IOException {
-        sendInfo("list "+item+"\n");
+    public void list() throws IOException {
+        sendInfo("list "+"\n");
     }
 
     public void custom(String command) throws IOException {
