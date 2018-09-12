@@ -16,12 +16,18 @@ public class benchmark {
 		int[] executionAmount = new int[] {50000};
 		long start;
         long end;
+        long duration;
         for (int i = 0; i < executionAmount.length; i++) {
-			for (int j = 0; j < executionAmount[i]; j++) {
+			for (int j = 0; j < executionAmount[i];j++) {
                 start = System.nanoTime();
                 client.add("new_item");
                 end = System.nanoTime();
-                writer.write(end-start + "\n");
+                duration = end - start;
+                if (duration > 0L) {
+                    writer.write(duration + "\n");
+                } else {
+                    j--; //so the counter doesn't move and we try again
+                }
 			}
 		}
 	}
