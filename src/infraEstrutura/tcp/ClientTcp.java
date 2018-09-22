@@ -11,41 +11,36 @@ import distribuicao.IClient;
 
 public class ClientTcp implements IClient {
 	
-	private Socket socket;
-	private DataOutputStream socketOut;
-	private BufferedReader socketIn;
+	TcpClientRequestHandler tcpClientRequestHandler;
 	
-	public ClientTcp(String host, int port) throws UnknownHostException, IOException{
-		socket = new Socket(host,port);
-		socketOut = new DataOutputStream(
-				socket.getOutputStream());
-		socketIn = new BufferedReader(new InputStreamReader(
-				socket.getInputStream()));
+	public ClientTcp(String host, int port) throws Exception{
+		tcpClientRequestHandler = new TcpClientRequestHandler(host, port);
 	}
 	
-	private void sendInfo(String in) throws IOException {
-		socketOut.writeBytes(in);
+	private void sendInfo(String in) throws Exception {
+		tcpClientRequestHandler.send(in.getBytes());
 		System.out.println("Message sent. Waiting for server response.");
-		System.out.println(socketIn.readLine());
+		String response = new String(tcpClientRequestHandler.receive());
+		System.out.println(response);
 	}
 	
-	public void add(String item) throws IOException {
+	public void add(String item) throws Exception {
 		sendInfo("add "+item+"\n");
 	}
 	
-	public void remove(String item) throws IOException {
+	public void remove(String item) throws Exception {
 		sendInfo("remove "+item+"\n");
 	}
 	
-	public void list() throws IOException {
+	public void list() throws Exception {
 		sendInfo("list "+"\n");
 	}
 	
-	public void custom(String command) throws IOException {
+	public void custom(String command) throws Exception {
 		sendInfo(command+"\n");
 	}
 	
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
     	ClientTcp client = new ClientTcp("127.0.0.1", 2005);
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);

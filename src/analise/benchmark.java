@@ -6,10 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import distribuicao.IClient;
+import infraEstrutura.IEstoque;
 import infraEstrutura.middleware.Client;
 import infraEstrutura.tcp.ClientTcp;
 import infraEstrutura.udp.ClientUdp;
-import servicos.IEstoque;
 
 public class benchmark {
 	

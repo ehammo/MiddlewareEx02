@@ -3,8 +3,8 @@ package distribuicao;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 
+import infraEstrutura.IEstoque;
 import infraEstrutura.middleware.Server;
-import servicos.IEstoque;
 
 public abstract class IServer {
 	

@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import java.util.Scanner;
 
 import distribuicao.IClient;
-import servicos.IEstoque;
+import infraEstrutura.IEstoque;
 
 public class Client implements IClient {
 	
