@@ -1,4 +1,4 @@
-package servicos;
+package infraEstrutura;
 
 import java.lang.StringBuilder;
 import java.rmi.RemoteException;
@@ -16,7 +16,7 @@ public class Estoque extends UnicastRemoteObject implements IEstoque {
     @Override
     public String add(String item) throws RemoteException {
     	int qtd = modify(item, true);
-    	return String.format("Added %1$s with sucess. Now we have %2$d %1$s(s)\n",
+    	return String.format("Added '%1$s' with sucess. Now we have '%2$d %1$s'(s)\n",
     			item, qtd);
     }
     
@@ -31,9 +31,11 @@ public class Estoque extends UnicastRemoteObject implements IEstoque {
     public String getAll() throws RemoteException {
     	StringBuilder sb = new StringBuilder();
     	for(String item : estoque.keySet()){
-    		sb.append(item)
+    		sb    			
+    			.append(item)
     			.append(" ")
-    			.append(estoque.get(item));
+    			.append(estoque.get(item))
+    			.append(" ");
     	}
     	sb.append("\n");
     	return sb.toString();

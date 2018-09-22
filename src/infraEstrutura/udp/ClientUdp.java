@@ -1,59 +1,41 @@
 package infraEstrutura.udp;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.util.Scanner;
 
 import distribuicao.IClient;
 
 public class ClientUdp implements IClient  {
-    int port;
-    String host;
-    DatagramSocket socket;
-    InetAddress ipAddress;
-    byte[] sendData = new byte[1024];
-    byte[] receiveData = new byte[1024];
 
+	UdpClientRequestHandler clientRequestHandler;
+	
     public ClientUdp(String host, int port) {
-        try {
-            this.host = host;
-            this.port = port;
-            socket = new DatagramSocket();
-            ipAddress = InetAddress.getByName(host);
-        } catch (Exception e) {
-            System.out.println("Connection Failed");
-        }
+    	clientRequestHandler = new UdpClientRequestHandler(host, port);
     }
 
-    private void sendInfo(String item) throws IOException {
-        sendData = item.getBytes();
-        DatagramPacket sendPacket = new DatagramPacket(sendData,
-                sendData.length, ipAddress, port);
-        socket.send(sendPacket);
-        DatagramPacket receivePacket = new DatagramPacket(receiveData,
-                receiveData.length);
-        socket.receive(receivePacket);
+    private void sendInfo(String item) throws Exception {
+        clientRequestHandler.send(item.getBytes());
+		System.out.println("Message sent. Waiting for server response.");
+		String response = new String(clientRequestHandler.receive());
+		System.out.println(response);
     }
 
-    public void add(String item) throws IOException {
+    public void add(String item) throws Exception {
         sendInfo("add "+item+"\n");
     }
 
-    public void remove(String item) throws IOException {
+    public void remove(String item) throws Exception {
         sendInfo("remove "+item+"\n");
     }
 
-    public void list() throws IOException {
+    public void list() throws Exception {
         sendInfo("list "+"\n");
     }
 
-    public void custom(String command) throws IOException {
-        sendInfo(command+"\n");
+    public void custom(String command) throws Exception {
+        sendInfo(command+" \n");
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
     	ClientUdp client = new ClientUdp("127.0.0.1", 2004);
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
