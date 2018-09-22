@@ -1,4 +1,4 @@
-package analise;
+package distribuicao;
 
 
 public interface IClient {

@@ -1,14 +1,13 @@
-package tcp;
+package infraEstrutura.tcp;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import analise.IClient;
+import distribuicao.IClient;
 
 public class ClientTcp implements IClient {
 	
@@ -26,8 +25,8 @@ public class ClientTcp implements IClient {
 	
 	private void sendInfo(String in) throws IOException {
 		socketOut.writeBytes(in);
-		//System.out.println("Message sent. Waiting for server response.");
-		//System.out.println(socketIn.readLine());
+		System.out.println("Message sent. Waiting for server response.");
+		System.out.println(socketIn.readLine());
 	}
 	
 	public void add(String item) throws IOException {
@@ -46,6 +45,14 @@ public class ClientTcp implements IClient {
 		sendInfo(command+"\n");
 	}
 	
-	
+    public static void main(String[] args) throws IOException {
+    	ClientTcp client = new ClientTcp("127.0.0.1", 2005);
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+    	while(true) {
+    		String command = in.nextLine();
+    		client.custom(command);
+    	}
+    }
 
 }

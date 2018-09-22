@@ -1,4 +1,4 @@
-package middleware;
+package servicos;
 
 import java.lang.StringBuilder;
 import java.rmi.RemoteException;
@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Estoque extends UnicastRemoteObject implements IEstoque {
 
-	protected Estoque() throws RemoteException {
+	public Estoque() throws RemoteException {
 		super();
 	}
 
@@ -16,14 +16,14 @@ public class Estoque extends UnicastRemoteObject implements IEstoque {
     @Override
     public String add(String item) throws RemoteException {
     	int qtd = modify(item, true);
-    	return String.format("Added %1$s with sucess.\nNow we have %2$d %1$s(s)",
+    	return String.format("Added %1$s with sucess. Now we have %2$d %1$s(s)\n",
     			item, qtd);
     }
     
     @Override
     public String remove(String item) throws RemoteException {
     	int qtd = modify(item, false);
-    	return String.format("Removed %1$s with sucess.\nNow we have %2$d %1$s(s)",
+    	return String.format("Removed %1$s with sucess. Now we have %2$d %1$s(s)\n",
     			item, qtd);
     }
     
@@ -33,9 +33,9 @@ public class Estoque extends UnicastRemoteObject implements IEstoque {
     	for(String item : estoque.keySet()){
     		sb.append(item)
     			.append(" ")
-    			.append(estoque.get(item))
-    			.append("\n");
+    			.append(estoque.get(item));
     	}
+    	sb.append("\n");
     	return sb.toString();
     }
     

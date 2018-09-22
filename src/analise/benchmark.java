@@ -1,14 +1,15 @@
 package analise;
 
-import middleware.Client;
-import middleware.IEstoque;
-import tcp.ClientTcp;
-import udp.ClientUdp;
-
 import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import distribuicao.IClient;
+import infraEstrutura.middleware.Client;
+import infraEstrutura.tcp.ClientTcp;
+import infraEstrutura.udp.ClientUdp;
+import servicos.IEstoque;
 
 public class benchmark {
 	
@@ -42,8 +43,10 @@ public class benchmark {
         // we assume that both server applications are running on the side.
         try {
             System.out.println("Middleware test");
+            int port = 12345;
+    		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
             BufferedWriter writer = Files.newBufferedWriter(middlePath);
-            Client client = new Client(IEstoque.host); 
+            Client client = new Client(host); 
             test(writer, client);
 			System.out.println("Middleware test ended");
 			

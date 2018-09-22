@@ -1,16 +1,18 @@
-package udp;
+package infraEstrutura.udp;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import udp.Estoque;
+
+import servicos.Estoque;
 
 public class ServerUdp {
     public static void main(String[] args) throws IOException {
 		int port = 2004;
         
-        String in,out;
-        DatagramSocket  serverSocket = new DatagramSocket(port);
+        String out;
+        @SuppressWarnings("resource")
+		DatagramSocket  serverSocket = new DatagramSocket(port);
         byte[] receiveData = new byte[1024];
 		byte[] sendData = new byte[1024];
         Estoque estoque = new Estoque();

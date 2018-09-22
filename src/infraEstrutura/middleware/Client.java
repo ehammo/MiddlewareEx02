@@ -1,4 +1,4 @@
-package middleware;
+package infraEstrutura.middleware;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -6,7 +6,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
-import analise.IClient;
+import distribuicao.IClient;
+import servicos.IEstoque;
 
 public class Client implements IClient {
 	
@@ -16,31 +17,35 @@ public class Client implements IClient {
 						MalformedURLException,
 						RemoteException,
 						NotBoundException {
+		System.out.println("host: "+host);
 		server = (IEstoque) Naming.lookup(host);
 	}
 	
 	
 	public void add(String item) throws RemoteException {
 		String message = server.add(item);
-		System.out.println("Response = "+message);
+		System.out.println(message);
 		
 	}
 	
 	public void remove(String item) throws RemoteException {
 		String message = server.remove(item);
-		System.out.println("Response = "+message);
+		System.out.println(message);
 	}
 	
 	public void list() throws RemoteException {
 		String message = server.getAll();
-		System.out.println("Response = "+message);
+		System.out.println(message);
 	}
 	
 	public static void main(String[] args)
 			throws RemoteException, MalformedURLException, NotBoundException  { 
-        Client client = new Client(IEstoque.host); 
-    	while(true) {
-    		Scanner in = new Scanner(System.in);
+		int port = 12345;
+		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
+		Client client = new Client(host); 
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+        while(true) {
     		String fullLine = in.nextLine();
     		String[] command = fullLine.split(" ");
     		if (command[0].equals("add")) {
