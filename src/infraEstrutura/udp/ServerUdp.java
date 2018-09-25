@@ -1,10 +1,9 @@
 package infraEstrutura.udp;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 
 import distribuicao.IServer;
 import infraEstrutura.Estoque;
+
+import java.net.DatagramSocket;
 
 public class ServerUdp extends IServer {
 	

@@ -1,10 +1,7 @@
 package distribuicao;
 
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
-
 import infraEstrutura.IEstoque;
-import infraEstrutura.middleware.Server;
+
 
 public abstract class IServer {
 	
