@@ -7,29 +7,48 @@ import infraEstrutura.Estoque;
 public class ServerTcp extends IServer {
 		
 	static TcpServerRequestHandler tcpServerRequestHandler;
+	boolean running;
 	
 	public ServerTcp(int port) throws Exception{
 		tcpServerRequestHandler = new TcpServerRequestHandler(port);
-		estoque = new Estoque();    	
+		estoque = new Estoque();
 	}
 	
-    public static void main(String[] args) throws Exception {
-    	String out;
-    	int port = 2005;
-    	ServerTcp server = new ServerTcp(port);
-    	while (true){
+	private void run() throws Exception{
+		String out;
+		running = true;
+		while (running){
         	String[] command = tcpServerRequestHandler.receiveAsStringArray();
         	if (command[0].equals("add")) {
-        		out = server.add(command[1]);
+        		out = this.add(command[1]);
         	} else if(command[0].equals("remove")){
-        		out = server.remove(command[1]);
+        		out = this.remove(command[1]);
         	} else if(command[0].equals("list")){
-        		out = server.getAll();
+        		out = this.getAll();
         	} else {
         		out = "Invalid command. Use 'add', 'remove' or 'list' \n";
         	}
         	tcpServerRequestHandler.send(out.getBytes());
     	}
+	}
+
+    public static void main(String[] args) throws Exception {
+    	String out;
+    	int port = 2005;
+    	ServerTcp server = new ServerTcp(port);
+    	
     }
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		running = false;
+	}
+
+	@Override
+	public void start() throws Exception {
+		// TODO Auto-generated method stub
+		run();
+	}
 }
    

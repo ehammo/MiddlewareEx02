@@ -13,10 +13,11 @@ public class Client implements IClient {
 	
 	private IEstoque server;
 	
-	public Client(String host) throws
+	public Client(String host, int port) throws
 						MalformedURLException,
 						RemoteException,
 						NotBoundException {
+		host = String.format("//%1$s:%2$d/Estoque", host, port);
 		System.out.println("host: "+host);
 		server = (IEstoque) Naming.lookup(host);
 	}
@@ -41,8 +42,7 @@ public class Client implements IClient {
 	public static void main(String[] args)
 			throws RemoteException, MalformedURLException, NotBoundException  { 
 		int port = 12345;
-		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
-		Client client = new Client(host); 
+		Client client = new Client("127.0.0.1", port); 
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
         while(true) {

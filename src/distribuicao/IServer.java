@@ -1,4 +1,5 @@
 package distribuicao;
+
 import infraEstrutura.IEstoque;
 
 public abstract class IServer {
@@ -19,4 +20,8 @@ public abstract class IServer {
 		return estoque.getAll();
 	}
 	
+	public abstract void stop();
+
+	public abstract void start() throws Exception;
+
 }

@@ -10,18 +10,28 @@ import infraEstrutura.Estoque;
 
 public class Server extends IServer {
 
-	public Server() throws RemoteException, MalformedURLException {
-		port = 12345;
-		host = String.format("//127.0.0.1:%1$d/Estoque", port);
+	public Server(String host, int port) throws RemoteException, MalformedURLException {
 		estoque = new Estoque();
-		System.out.println("rmi:"+host);
 		LocateRegistry.createRegistry(port);
-		Naming.rebind("rmi:"+host, estoque);
+		this.host = String.format("rmi://%1$s:%2$d/Estoque", host, port);
+		Naming.rebind(this.host, estoque);
 	}
+	
+	public void start(){
+		// todo
+	}
+
+	public void stop() {
+		// todo
+	}
+
 	
     public static void main(String[] args) throws
         RemoteException, MalformedURLException {
-    	new Server();
+		int port = 12345;
+		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
+    	new Server(host, port);
     }
+
 
 }
