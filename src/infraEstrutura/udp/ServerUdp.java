@@ -35,6 +35,7 @@ public class ServerUdp extends IServer {
 	
     public static void main(String[] args) throws Exception {
 		ServerUdp server = new ServerUdp(2004);
+		server.run();
     }
 
     @Override

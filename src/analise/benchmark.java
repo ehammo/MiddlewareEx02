@@ -42,13 +42,11 @@ public class benchmark {
 
         // we assume that both server applications are running on the side.
         try {
-            System.out.println("Middleware test");
-            int port = 12345;
-    		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
-            BufferedWriter writer = Files.newBufferedWriter(middlePath);
-            Client client = new Client(host); 
-            test(writer, client);
-			System.out.println("Middleware test ended");
+//            System.out.println("Middleware test");
+//            BufferedWriter writer = Files.newBufferedWriter(middlePath);
+//            Client client = new Client("127.0.0.1", 12345); 
+//            test(writer, client);
+//			System.out.println("Middleware test ended");
 			
 			System.out.println("TCP test");
             BufferedWriter tcpWriter = Files.newBufferedWriter(tcpPath);

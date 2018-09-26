@@ -14,6 +14,7 @@ public class Server extends IServer {
 		estoque = new Estoque();
 		LocateRegistry.createRegistry(port);
 		this.host = String.format("rmi://%1$s:%2$d/Estoque", host, port);
+		System.out.println(this.host);
 		Naming.rebind(this.host, estoque);
 	}
 	
@@ -30,7 +31,7 @@ public class Server extends IServer {
         RemoteException, MalformedURLException {
 		int port = 12345;
 		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
-    	new Server(host, port);
+    	new Server("127.0.0.1", port);
     }
 
 

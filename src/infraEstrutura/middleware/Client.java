@@ -18,7 +18,7 @@ public class Client implements IClient {
 						RemoteException,
 						NotBoundException {
 		host = String.format("//%1$s:%2$d/Estoque", host, port);
-		System.out.println("host: "+host);
+		System.out.println("host: '"+host+"'");
 		server = (IEstoque) Naming.lookup(host);
 	}
 	

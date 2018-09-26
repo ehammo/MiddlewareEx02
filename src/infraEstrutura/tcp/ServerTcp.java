@@ -36,7 +36,7 @@ public class ServerTcp extends IServer {
     	String out;
     	int port = 2005;
     	ServerTcp server = new ServerTcp(port);
-    	
+    	server.run();
     }
 
 	@Override
