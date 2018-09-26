@@ -3,19 +3,16 @@ package infraEstrutura.udp;
 import distribuicao.IServer;
 import infraEstrutura.Estoque;
 
-import java.net.DatagramSocket;
-
 public class ServerUdp extends IServer {
 	
-	static DatagramSocket  serverSocket;
 	static UdpServerRequestHandler udpServerRequestHandler;
-	public ServerUdp() throws Exception{
+	public ServerUdp(int port) throws Exception{
 		estoque = new Estoque();
         udpServerRequestHandler = new UdpServerRequestHandler(port);
 	}
 	
     public static void main(String[] args) throws Exception {
-		ServerUdp server = new ServerUdp();
+		ServerUdp server = new ServerUdp(2004);
     	String out;
 		while (true){
     		byte[] data = udpServerRequestHandler.receive();

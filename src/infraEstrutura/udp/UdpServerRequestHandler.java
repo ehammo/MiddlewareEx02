@@ -1,10 +1,10 @@
 package infraEstrutura.udp;
 
-import distribuicao.IRequestHandler;
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+
+import distribuicao.IRequestHandler;
 
 public class UdpServerRequestHandler implements IRequestHandler {
 

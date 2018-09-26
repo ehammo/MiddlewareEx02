@@ -1,7 +1,5 @@
 package distribuicao;
-
 import infraEstrutura.IEstoque;
-
 
 public abstract class IServer {
 	
