@@ -2,7 +2,7 @@ package infraEstrutura.udp;
 
 import java.util.Scanner;
 
-import distribuicao.IClient;
+import infraEstrutura.IClient;
 
 public class ClientUdp implements IClient  {
 

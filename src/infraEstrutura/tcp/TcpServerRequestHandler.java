@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import distribuicao.IRequestHandler;
+import infraEstrutura.IRequestHandler;
 
 public class TcpServerRequestHandler implements IRequestHandler {
 

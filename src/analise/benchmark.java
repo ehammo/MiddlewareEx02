@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import distribuicao.IClient;
+import infraEstrutura.IClient;
 import infraEstrutura.IEstoque;
 import infraEstrutura.middleware.Client;
 import infraEstrutura.tcp.ClientTcp;

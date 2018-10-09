@@ -6,7 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
-import distribuicao.IClient;
+import infraEstrutura.IClient;
 import infraEstrutura.IEstoque;
 
 public class Client implements IClient {

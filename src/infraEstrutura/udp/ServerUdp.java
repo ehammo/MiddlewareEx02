@@ -1,7 +1,7 @@
 package infraEstrutura.udp;
 
-import distribuicao.IServer;
 import infraEstrutura.Estoque;
+import infraEstrutura.IServer;
 
 public class ServerUdp extends IServer {
 	

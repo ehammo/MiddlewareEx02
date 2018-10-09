@@ -5,8 +5,8 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
-import distribuicao.IServer;
 import infraEstrutura.Estoque;
+import infraEstrutura.IServer;
 
 public class Server extends IServer {
 

@@ -1,7 +1,7 @@
 package infraEstrutura.tcp;
 
-import distribuicao.IServer;
 import infraEstrutura.Estoque;
+import infraEstrutura.IServer;
 
 
 public class ServerTcp extends IServer {

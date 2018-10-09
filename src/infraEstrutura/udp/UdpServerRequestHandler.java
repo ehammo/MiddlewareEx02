@@ -4,7 +4,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-import distribuicao.IRequestHandler;
+import infraEstrutura.IRequestHandler;
 
 public class UdpServerRequestHandler implements IRequestHandler {
 
