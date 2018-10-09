@@ -4,21 +4,20 @@ import java.util.ArrayList;
 
 public class Invocation {
 	private int objectId;
-	private String ipAddress;
-	private int portNumber;
+	private String host;
+	private int port;
 	private String operation;
 	private ArrayList<Object> parameters;
 	
-	public Invocation(int objectId, String ipAddress, int portNumber, String operation,
-			ArrayList<Object> parameters) {
+	public Invocation(int objectId, String host, int port, String operation, ArrayList<Object> parameters) {
 		super();
 		this.objectId = objectId;
-		this.ipAddress = ipAddress;
-		this.portNumber = portNumber;
+		this.host = host;
+		this.port = port;
 		this.operation = operation;
 		this.parameters = parameters;
 	}
-	
+
 	public int getObjectId() {
 		return objectId;
 	}
@@ -27,20 +26,20 @@ public class Invocation {
 		this.objectId = objectId;
 	}
 
-	public String getIpAddress() {
-		return ipAddress;
+	public String getHost() {
+		return host;
 	}
 
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
+	public void setHost(String host) {
+		this.host = host;
 	}
 
-	public int getPortNumber() {
-		return portNumber;
+	public int getPort() {
+		return port;
 	}
 
-	public void setPortNumber(int portNumber) {
-		this.portNumber = portNumber;
+	public void setPort(int port) {
+		this.port = port;
 	}
 
 	public String getOperation() {
