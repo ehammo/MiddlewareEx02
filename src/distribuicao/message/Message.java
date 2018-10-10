@@ -1,8 +1,11 @@
 package distribuicao.message;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Message {
+public class Message implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private int requestId;
 	private String operation;
 	private ArrayList<Object> parameters;
