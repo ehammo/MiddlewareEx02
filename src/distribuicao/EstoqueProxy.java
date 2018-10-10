@@ -16,9 +16,23 @@ public class EstoqueProxy extends ClientProxy implements IEstoque {
 
 	@Override
 	public String add(String item) throws RemoteException {
+		return sendCommand("add", item);
+	}
+
+	@Override
+	public String remove(String item) throws RemoteException {
+		return sendCommand("remove", item);
+	}
+
+	@Override
+	public String getAll() throws RemoteException {
+		return sendCommand("list", null);
+	}
+	
+	public String sendCommand(String command, String item) {
 		ArrayList<Object> parameters = new ArrayList<Object>();
 		parameters.add(item);
-		Invocation inv = new Invocation(super.getObjectId(), super.getHost(), super.getPort(), "add", parameters);
+		Invocation inv = new Invocation(super.getObjectId(), super.getHost(), super.getPort(), command, parameters);
 		Requestor req = new Requestor();
 		Termination result = null;
 		try {
@@ -28,17 +42,5 @@ public class EstoqueProxy extends ClientProxy implements IEstoque {
 			e.printStackTrace();
 		}
 		return ((Message) result.getResult()).getOperationResult().toString();
-	}
-
-	@Override
-	public String remove(String item) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getAll() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
