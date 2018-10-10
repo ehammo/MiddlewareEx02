@@ -5,20 +5,45 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import distribuicao.message.Message;
 
 public class Marshaller {
+	
+	private final static String SPECIAL_CHAR = "QQWWW";
+	
 	public byte[] marshall(Message msgToBeMarshalled) throws IOException {
-		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-		ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
-		objectStream.writeObject(msgToBeMarshalled);
-		return byteStream.toByteArray();
+		String msgString = messageToString(msgToBeMarshalled);
+		byte[] msg = msgString.getBytes();
+		return msg;
 	}
 
 	public Message unmarshall(byte[] msgToBeUnmarshalled) throws IOException, ClassNotFoundException {
-		ByteArrayInputStream byteStream = new ByteArrayInputStream(msgToBeUnmarshalled);
-		ObjectInputStream objectStream = new ObjectInputStream(byteStream);
-		return (Message) objectStream.readObject();
+		String receivedMsg = (new String(msgToBeUnmarshalled)).trim();
+		if(receivedMsg.contains(SPECIAL_CHAR)){
+			receivedMsg = receivedMsg.substring(0, receivedMsg.length()-5);
+			return new Message(0, null, null, receivedMsg);
+		} else {
+			String[] msgArray = receivedMsg.split(" ");
+			ArrayList<Object> parameters = new ArrayList<Object>();
+			parameters.add(msgArray[1]);
+			return new Message(0, msgArray[0], parameters, null);
+		}
+	}
+	
+	public String messageToString(Message msg){
+		StringBuilder sb = new StringBuilder();
+		if (msg.getOperationResult() != null) {
+			sb.append((String)msg.getOperationResult());
+			// Special char if msg is a response msg
+			sb.append(SPECIAL_CHAR);
+		} else {
+			sb.append(msg.getOperation()).append(" ");
+			for(Object p : msg.getParameters()){
+				sb.append(p.toString());
+			}
+		}
+		return sb.toString();
 	}
 }

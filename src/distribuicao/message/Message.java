@@ -50,4 +50,5 @@ public class Message implements Serializable {
 	public void setOperationResult(Object operationResult) {
 		this.operationResult = operationResult;
 	}
+	
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import distribuicao.Invocation;
 import distribuicao.Requestor;
+import distribuicao.Termination;
+import distribuicao.message.Message;
 
 public class Client {
 	public static void main(String[] args) {
@@ -14,7 +16,10 @@ public class Client {
 		Requestor req = new Requestor();
 		
 		try {
-			req.invoke(inv);
+			Termination termination = req.invoke(inv);
+			Message mesg = (Message)termination.getResult();
+			
+			System.out.println(mesg.getOperationResult().toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -23,12 +23,18 @@ public class TcpClientRequestHandler implements IRequestHandler {
 	
 	@Override
 	public void send(byte[] data) throws Exception {
+		System.out.println("write");
 		socketOut.write(data);
+		System.out.println("wrote");
 	}
 
 	@Override
 	public byte[] receive() throws Exception {
-		return socketIn.readLine().getBytes();
+		System.out.println("trying to receive client");
+		byte[] buffer = new byte[100*1024];
+		socket.getInputStream().read(buffer);
+		System.out.println("read");
+		return buffer;
 	}
 	
 	

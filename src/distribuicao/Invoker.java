@@ -16,15 +16,16 @@ public class Invoker {
 		
 		while(true) {
 			System.out.println("Running loop...");
-			msgUnmarshalled = (Message) marshaller.unmarshall(srh.receive());
-			
+			byte[] msgToBeUnmarshalled = srh.receive();
+			System.out.println("received");
+			msgUnmarshalled = (Message) marshaller.unmarshall(msgToBeUnmarshalled);
+			System.out.println("unmarshalled");
 			switch(msgUnmarshalled.getOperation()) {
 			case "add":
 				String item = (String) msgUnmarshalled.getParameters().get(0);
 				
 				String result = estoque.add(item);
 				termination.setResult(result);
-				
 				Message reply = new Message(0, null, null, termination.getResult());
 				srh.send(marshaller.marshall(reply));
 				break;

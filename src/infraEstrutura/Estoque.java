@@ -15,9 +15,15 @@ public class Estoque extends UnicastRemoteObject implements IEstoque {
 
     @Override
     public String add(String item) throws RemoteException {
+    	item = item.trim();
     	int qtd = modify(item, true);
-    	return String.format("Added '%1$s' with sucess. Now we have '%2$d %1$s'(s)\n",
-    			item, qtd);
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("Added ")
+    		.append(item).append(" with success.")
+    		.append(" Now we have ").append(qtd)
+    		.append(" ").append(item).append("(s)");
+    	String msg = sb.toString();
+    	return msg;
     }
     
     @Override

@@ -11,8 +11,9 @@ public class Requestor {
 		Marshaller marshaller = new Marshaller();
 		Termination termination = new Termination(null);
 		Message msgToBeMarshalled = new Message(0, inv.getOperation(), inv.getParameters(), null);
-		
+		System.out.println("send msg: "+msgToBeMarshalled.toString());
 		crh.send(marshaller.marshall(msgToBeMarshalled));
+		System.out.println("sent");
 		termination.setResult(marshaller.unmarshall(crh.receive()));
 		
 		return termination;
