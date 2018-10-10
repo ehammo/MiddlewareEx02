@@ -30,6 +30,7 @@ public class Invoker {
 				srh.send(marshaller.marshall(reply));
 				break;
 			}
+			srh.closeConnection();
 		}
 	}
 }

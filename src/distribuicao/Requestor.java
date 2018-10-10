@@ -15,7 +15,7 @@ public class Requestor {
 		crh.send(marshaller.marshall(msgToBeMarshalled));
 		System.out.println("sent");
 		termination.setResult(marshaller.unmarshall(crh.receive()));
-		
+		crh.closeConnection();
 		return termination;
 	}
 }

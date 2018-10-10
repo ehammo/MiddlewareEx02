@@ -9,19 +9,26 @@ import distribuicao.Invocation;
 import distribuicao.Requestor;
 import distribuicao.Termination;
 import distribuicao.message.Message;
+import infraEstrutura.IClient;
 
-public class Client {
+public class AppClient implements IClient {
+	static EstoqueProxy proxy;
+	
+	public AppClient(){
+		proxy = new EstoqueProxy("localhost", 2000, 1234);
+	}
+	
 	public static void main(String[] args) {
 		
 		try {
+			AppClient client = new AppClient();
 			Scanner scanner = new Scanner(System.in);
 			while(true){
-				EstoqueProxy proxy = new EstoqueProxy("localhost", 2000, 1234);
 				String msg = scanner.nextLine();
 				String[] msgArray = msg.split(" ");
 				switch (msgArray[0]) {
 				case "add":
-					proxy.add(msgArray[1]);
+					client.add(msgArray[1]);
 					break;
 				default:
 					break;
@@ -31,5 +38,20 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void add(String item) throws Exception {
+		proxy.add(item);
+	}
+
+	@Override
+	public void remove(String item) throws Exception {
+		proxy.remove(item);		
+	}
+
+	@Override
+	public void list() throws Exception {
+		System.out.println(proxy.getAll());		
 	}
 }
