@@ -13,8 +13,8 @@ import infraEstrutura.udp.ClientUdp;
 
 public class BenchmarkEx05 {
 		
-		public static void test(BufferedWriter writer, IClient client) throws Exception {
-			int[] executionAmount = new int[] {50000};
+		public static void test(BufferedWriter writer, IClient client, int exec) throws Exception {
+			int[] executionAmount = new int[] {exec};
 			long start;
 	        long end;
 	        long duration;
@@ -36,24 +36,43 @@ public class BenchmarkEx05 {
 		public static void main(String[] args) {
 			
 	        
-	        Path middleware_rmi = Paths.get("middleware_rmi.txt");
-	        Path middleware_rcp = Paths.get("middleware_rcp.txt");
+	        Path middleware_rmi_50000 = Paths.get("middleware_rmi_50000.txt");
+	        Path middleware_rmi_100000 = Paths.get("middleware_rmi_100000.txt");
+	        Path middleware_rmi_10000 = Paths.get("middleware_rmi_10000.txt");
+	        Path remote_patterns_50000 = Paths.get("remote_patterns_50000.txt");
+	        Path remote_patterns_100000 = Paths.get("remote_patterns_100000.txt");
+	        Path remote_patterns_10000 = Paths.get("remote_patterns_10000.txt");
 
 	        // we assume that both server applications are running on the side.
 	        try {
-//	            System.out.println("Middleware rcp test");
-	            int port = 12345;
-//	            BufferedWriter writer = Files.newBufferedWriter(middleware_rcp);
-//	            AppClient appClient = new AppClient(); 
-//	            test(writer, appClient);
+	        	int port = 12345;
+	            
+	        
+	        	System.out.println("Middleware rcp test 100000");
+	            BufferedWriter writer = Files.newBufferedWriter(remote_patterns_100000);
+	            AppClient appClient = new AppClient(); 
+	            test(writer, appClient, 100000);	
+				System.out.println("Middleware rcp test ended");
+//				
+//				System.out.println("Middleware rcp test 10000");
+//	            writer = Files.newBufferedWriter(remote_patterns_10000);
+//	            test(writer, appClient, 10000);	
 //				System.out.println("Middleware rcp test ended");
-				
-	            System.out.println("Middleware rmi test");
-	            BufferedWriter tcpWriter = Files.newBufferedWriter(middleware_rmi);
-	    		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
-				Client clientRmi = new Client(host);
-				test(tcpWriter, clientRmi);
-	            System.out.println("Middleware rmi test ended");
+//				
+//	        	System.out.println("Middleware rmi test 100000");
+//	            BufferedWriter writer = Files.newBufferedWriter(middleware_rmi_100000);
+//	    		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
+//				Client clientRmi = new Client(host);
+//				test(writer, clientRmi, 100000);
+//	            System.out.println("Middleware rmi test ended");
+	            
+//	            System.out.println("Middleware rmi test 10000");
+//	            writer = Files.newBufferedWriter(middleware_rmi_10000);
+//				test(writer, clientRmi, 10000);
+//	            System.out.println("Middleware rmi test ended");
+	            
+	        	
+	        	
 	            
 	        } catch (Exception e) {
 				// TODO Auto-generated catch block
