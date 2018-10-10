@@ -1,5 +1,6 @@
 package infraEstrutura.udp;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -38,7 +39,7 @@ public class UdpServerRequestHandler implements IRequestHandler {
 		serverSocket.receive(receivePacket);
 		return receivePacket.getData();
 	}
-	
-	
 
+	@Override
+	public void closeConnection() throws IOException {}
 }
