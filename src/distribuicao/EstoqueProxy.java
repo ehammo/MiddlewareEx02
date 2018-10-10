@@ -1,6 +1,7 @@
 package distribuicao;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import infraEstrutura.IEstoque;
 
@@ -14,8 +15,18 @@ public class EstoqueProxy extends ClientProxy implements IEstoque {
 
 	@Override
 	public String add(String item) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Object> parameters = new ArrayList<Object>();
+		parameters.add(item);
+		Invocation inv = new Invocation(super.getObjectId(), super.getHost(), super.getPort(), "add", parameters);
+		Requestor req = new Requestor();
+		Termination result = null;
+		try {
+			result = req.invoke(inv);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (String) result.getResult();
 	}
 
 	@Override
