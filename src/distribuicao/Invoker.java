@@ -32,7 +32,7 @@ public class Invoker {
 				System.out.println("sent response");
 				break;
 			}
-//			srh.closeConnection();
+			srh.closeConnection();
 		}
 	}
 }

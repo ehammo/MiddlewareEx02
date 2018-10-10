@@ -13,12 +13,22 @@ public class TcpClientRequestHandler implements IRequestHandler {
 	private Socket socket;
 	private DataOutputStream socketOut;
 	private BufferedReader socketIn;
-	
+	private String host;
+	private int port;
 	public TcpClientRequestHandler(String host, int port) throws Exception{
-		socket = new Socket(host,port);
+		this.host = host;
+		this.port = port;
+		
 	}
 
 	public void create() throws IOException {
+		boolean create = false;
+		while(!create){
+			try {
+				socket = new Socket(host,port);
+				create = true;
+			} catch (Exception e){}
+		}
 		socketOut = new DataOutputStream(
 				socket.getOutputStream());
 		socketIn = new BufferedReader(new InputStreamReader(
@@ -28,8 +38,9 @@ public class TcpClientRequestHandler implements IRequestHandler {
 	
 	@Override
 	public void send(byte[] data) throws Exception {
-		while(!socket.isClosed())
 		socketOut.write(data);
+		socketOut.flush();
+		System.out.println("sent");
 	}
 
 	@Override

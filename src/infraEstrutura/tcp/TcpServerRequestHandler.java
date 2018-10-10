@@ -52,7 +52,7 @@ public class TcpServerRequestHandler implements IRequestHandler {
 	public void closeConnection() throws IOException {
 		System.out.println("server fechou");
 		socket.close();
-		welcomeSocket.close();
+//		welcomeSocket.close();
 		socketIn.close();
 		socketOut.close();
 	}

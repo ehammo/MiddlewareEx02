@@ -36,24 +36,24 @@ public class BenchmarkEx05 {
 		public static void main(String[] args) {
 			
 	        
-	        Path middlePath = Paths.get("middleware_rmi.txt");
-	        Path tcpPath = Paths.get("middleware_rcp.txt");
+	        Path middleware_rmi = Paths.get("middleware_rmi.txt");
+	        Path middleware_rcp = Paths.get("middleware_rcp.txt");
 
 	        // we assume that both server applications are running on the side.
 	        try {
-	            System.out.println("Middleware rcp test");
+//	            System.out.println("Middleware rcp test");
 	            int port = 12345;
-	            BufferedWriter writer = Files.newBufferedWriter(middlePath);
-	            AppClient appClient = new AppClient(); 
-	            test(writer, appClient);
-				System.out.println("Middleware rcp test ended");
+//	            BufferedWriter writer = Files.newBufferedWriter(middleware_rcp);
+//	            AppClient appClient = new AppClient(); 
+//	            test(writer, appClient);
+//				System.out.println("Middleware rcp test ended");
 				
-//	            System.out.println("Middleware rmi test");
-//	            BufferedWriter tcpWriter = Files.newBufferedWriter(tcpPath);
-//	    		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
-//				Client clientRmi = new Client(host);
-//				test(tcpWriter, clientRmi);
-//	            System.out.println("Middleware rmi test ended");
+	            System.out.println("Middleware rmi test");
+	            BufferedWriter tcpWriter = Files.newBufferedWriter(middleware_rmi);
+	    		String host = String.format("//127.0.0.1:%1$d/Estoque", port);
+				Client clientRmi = new Client(host);
+				test(tcpWriter, clientRmi);
+	            System.out.println("Middleware rmi test ended");
 	            
 	        } catch (Exception e) {
 				// TODO Auto-generated catch block

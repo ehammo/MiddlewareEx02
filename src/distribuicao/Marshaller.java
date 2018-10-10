@@ -30,6 +30,7 @@ public class Marshaller {
 			parameters.add(msgArray[1]);
 			return new Message(0, msgArray[0], parameters, null);
 		}
+	
 	}
 	
 	public String messageToString(Message msg){
