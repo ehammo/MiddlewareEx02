@@ -2,6 +2,7 @@ package infraEstrutura.tcp;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -42,6 +43,10 @@ public class TcpServerRequestHandler implements IRequestHandler {
 		byte[] data = receive();
 		String fullCommand = new String(data);
 		return fullCommand.split(" ");
+	}
+	
+	public void closeConnection() throws IOException {
+		socket.close();
 	}
 
 }

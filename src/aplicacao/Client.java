@@ -1,7 +1,10 @@
 package aplicacao;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import distribuicao.ClientProxy;
+import distribuicao.EstoqueProxy;
 import distribuicao.Invocation;
 import distribuicao.Requestor;
 import distribuicao.Termination;
@@ -9,17 +12,21 @@ import distribuicao.message.Message;
 
 public class Client {
 	public static void main(String[] args) {
-		ArrayList<Object> parameters = new ArrayList<Object>();
-		parameters.add("item");
-		
-		Invocation inv = new Invocation(1234, "localhost", 2000, "add", parameters);
-		Requestor req = new Requestor();
 		
 		try {
-			Termination termination = req.invoke(inv);
-			Message mesg = (Message)termination.getResult();
-			
-			System.out.println(mesg.getOperationResult().toString());
+			Scanner scanner = new Scanner(System.in);
+			while(true){
+				EstoqueProxy proxy = new EstoqueProxy("localhost", 2000, 1234);
+				String msg = scanner.nextLine();
+				String[] msgArray = msg.split(" ");
+				switch (msgArray[0]) {
+				case "add":
+					proxy.add(msgArray[1]);
+					break;
+				default:
+					break;
+				}
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

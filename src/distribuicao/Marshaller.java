@@ -35,7 +35,7 @@ public class Marshaller {
 	public String messageToString(Message msg){
 		StringBuilder sb = new StringBuilder();
 		if (msg.getOperationResult() != null) {
-			sb.append((String)msg.getOperationResult());
+			sb.append((String) msg.getOperationResult());
 			// Special char if msg is a response msg
 			sb.append(SPECIAL_CHAR);
 		} else {

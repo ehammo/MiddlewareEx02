@@ -8,13 +8,13 @@ import infraEstrutura.tcp.TcpServerRequestHandler;
 public class Invoker {
 	public void invoke(ClientProxy client) throws Exception {
 		System.out.println("Running...");
-		IRequestHandler srh = new TcpServerRequestHandler(client.getPort());
 		Marshaller marshaller = new Marshaller();
 		Termination termination = new Termination(null);
 		Estoque estoque = new Estoque();
 		Message msgUnmarshalled = null;
 		
 		while(true) {
+			IRequestHandler srh = new TcpServerRequestHandler(client.getPort());
 			System.out.println("Running loop...");
 			byte[] msgToBeUnmarshalled = srh.receive();
 			System.out.println("received");

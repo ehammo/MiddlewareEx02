@@ -3,6 +3,7 @@ package distribuicao;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import distribuicao.message.Message;
 import infraEstrutura.IEstoque;
 
 public class EstoqueProxy extends ClientProxy implements IEstoque {
@@ -26,7 +27,7 @@ public class EstoqueProxy extends ClientProxy implements IEstoque {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return (String) result.getResult();
+		return ((Message) result.getResult()).getOperationResult().toString();
 	}
 
 	@Override
