@@ -14,28 +14,32 @@ public class TcpServerRequestHandler implements IRequestHandler {
 	BufferedReader socketIn;
 	DataOutputStream socketOut;
 	Socket socket;
+	ServerSocket welcomeSocket;
+	
 	public TcpServerRequestHandler(int port) throws Exception{
-		ServerSocket welcomeSocket = new ServerSocket(port);
+		welcomeSocket = new ServerSocket(port);
+	}
+	
+	public void create() throws IOException{
 		socket = welcomeSocket.accept();
     	System.out.println("Accepted.");
-    	socketIn = new BufferedReader(new InputStreamReader(
-    			socket.getInputStream()));
     	socketOut = new DataOutputStream(socket.getOutputStream());
 	}
 
 	@Override
 	public void send(byte[] data) throws Exception {
 		socketOut.write(data);
+		socketOut.flush();
 	}
 
 	@Override
 	public byte[] receive() throws Exception {
+		socketIn = new BufferedReader(new InputStreamReader(
+    			socket.getInputStream()));
 		System.out.println("trying to receive");
 		while (!socketIn.ready());
-		System.out.println("ready");
 		byte[] buffer = new byte[100*1024];
 		socket.getInputStream().read(buffer);
-		System.out.println("read");
 		return buffer;
 	}
 	
@@ -46,7 +50,11 @@ public class TcpServerRequestHandler implements IRequestHandler {
 	}
 	
 	public void closeConnection() throws IOException {
+		System.out.println("server fechou");
 		socket.close();
+		welcomeSocket.close();
+		socketIn.close();
+		socketOut.close();
 	}
 
 }

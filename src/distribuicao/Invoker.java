@@ -12,9 +12,10 @@ public class Invoker {
 		Termination termination = new Termination(null);
 		Estoque estoque = new Estoque();
 		Message msgUnmarshalled = null;
-		
+		IRequestHandler srh = new TcpServerRequestHandler(client.getPort());
+
 		while(true) {
-			IRequestHandler srh = new TcpServerRequestHandler(client.getPort());
+			srh.create();
 			System.out.println("Running loop...");
 			byte[] msgToBeUnmarshalled = srh.receive();
 			System.out.println("received");
@@ -28,9 +29,10 @@ public class Invoker {
 				termination.setResult(result);
 				Message reply = new Message(0, null, null, termination.getResult());
 				srh.send(marshaller.marshall(reply));
+				System.out.println("sent response");
 				break;
 			}
-			srh.closeConnection();
+//			srh.closeConnection();
 		}
 	}
 }

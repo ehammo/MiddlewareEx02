@@ -23,6 +23,11 @@ public class UdpServerRequestHandler implements IRequestHandler {
         }
 	}
 	
+	public void create(){
+		
+	}
+	
+	
 	@Override
 	public void send(byte[] data) throws Exception {
     	InetAddress IPAddress = receivePacket.getAddress();

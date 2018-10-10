@@ -42,12 +42,12 @@ public class AppClient implements IClient {
 
 	@Override
 	public void add(String item) throws Exception {
-		proxy.add(item);
+		System.out.println(proxy.add(item));
 	}
 
 	@Override
 	public void remove(String item) throws Exception {
-		proxy.remove(item);		
+		System.out.println(proxy.remove(item));		
 	}
 
 	@Override

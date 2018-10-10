@@ -26,6 +26,10 @@ public class UdpClientRequestHandler implements IRequestHandler {
         }
 	}
 	
+	public void create(){
+		
+	}
+	
 	@Override
 	public void send(byte[] data) throws Exception {
 		DatagramPacket sendPacket = new DatagramPacket(data,

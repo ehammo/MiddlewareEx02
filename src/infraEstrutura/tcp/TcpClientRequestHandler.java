@@ -16,17 +16,20 @@ public class TcpClientRequestHandler implements IRequestHandler {
 	
 	public TcpClientRequestHandler(String host, int port) throws Exception{
 		socket = new Socket(host,port);
+	}
+
+	public void create() throws IOException {
 		socketOut = new DataOutputStream(
 				socket.getOutputStream());
 		socketIn = new BufferedReader(new InputStreamReader(
 				socket.getInputStream()));
+
 	}
 	
 	@Override
 	public void send(byte[] data) throws Exception {
-		System.out.println("write");
+		while(!socket.isClosed())
 		socketOut.write(data);
-		System.out.println("wrote");
 	}
 
 	@Override
@@ -39,7 +42,10 @@ public class TcpClientRequestHandler implements IRequestHandler {
 	}
 	
 	public void closeConnection() throws IOException{
+		System.out.println("cliente fechou");
 		socket.close();
+		socketIn.close();
+		socketOut.close();
 	}
 
 
