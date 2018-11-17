@@ -30,6 +30,11 @@ public class AppClient implements IClient {
 				case "add":
 					client.add(msgArray[1]);
 					break;
+				case "remove":
+					client.remove(msgArray[1]);
+					break;
+				case "list":
+					client.list();
 				default:
 					break;
 				}

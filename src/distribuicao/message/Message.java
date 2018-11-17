@@ -53,7 +53,11 @@ public class Message implements Serializable {
 	
 	@Override
 	public String toString() {
-		return operation+" "+parameters.get(0).toString()+". isResponse= "+(operationResult!=null);
+		if(parameters != null && parameters.size()>0 && parameters.get(0)!=null) {
+			return operation+" "+parameters.get(0).toString()+". isResponse= "+(operationResult!=null);
+		} else {
+			return operation;
+		}
 	}
 	
 }

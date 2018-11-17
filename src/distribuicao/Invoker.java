@@ -31,16 +31,32 @@ public class Invoker {
 			System.out.println("uncripted");
 			msgUncripted = (Message) marshaller.unmarshall(msgToBeUnmarshalled);
 			System.out.println("unmarshalled");
+			String item, result = null;
+			Message reply = null;
 			switch(msgUncripted.getOperation()) {
-			case "add":
-				String item = (String) msgUncripted.getParameters().get(0);
-				
-				String result = estoque.add(item);
-				termination.setResult(result);
-				Message reply = new Message(0, null, null, termination.getResult());
-				srh.send(marshaller.marshall(reply));
-				System.out.println("sent response");
-				break;
+				case "add":
+					item = (String) msgUncripted.getParameters().get(0);
+					result = estoque.add(item);
+					termination.setResult(result);
+					reply = new Message(0, null, null, termination.getResult());
+					srh.send(marshaller.marshall(reply));
+					System.out.println("sent response");
+					break;
+				case "remove":
+					item = (String) msgUncripted.getParameters().get(0);
+					result = estoque.remove(item);
+					termination.setResult(result);
+					reply = new Message(0, null, null, termination.getResult());
+					srh.send(marshaller.marshall(reply));
+					System.out.println("sent response");
+					break;
+				case "list":
+					result = estoque.getAll();
+					termination.setResult(result);
+					reply = new Message(0, null, null, termination.getResult());
+					srh.send(marshaller.marshall(reply));
+					System.out.println("sent response");
+					break;
 			}
 			srh.closeConnection();
 		}
