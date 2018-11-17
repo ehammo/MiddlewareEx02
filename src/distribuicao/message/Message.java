@@ -51,4 +51,9 @@ public class Message implements Serializable {
 		this.operationResult = operationResult;
 	}
 	
+	@Override
+	public String toString() {
+		return operation+" "+parameters.get(0).toString()+". isResponse= "+(operationResult!=null);
+	}
+	
 }
