@@ -7,26 +7,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
  
 public class DBUtil {
-    public static Connection connection() throws SQLException, ClassNotFoundException {
+    public static Connection connection(boolean autoCommit) throws SQLException, ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
     	Connection c = DriverManager.getConnection("jdbc:sqlite:estoque.db");
+    	c.setAutoCommit(autoCommit);
         return c;
     }
    
-    public static void insert(Connection c, String produto) throws SQLException {
+    public static boolean insert(Connection c, String produto) throws SQLException {
         Statement stmt = c.createStatement();
         String sql = "INSERT INTO ESTOQUE (PRODUTO, QTD) " +
                 "VALUES ('" + produto + "', 1);";
-        stmt.executeUpdate(sql);
+        int response = stmt.executeUpdate(sql);
         stmt.close();
+        System.out.println("insert response="+response);
+        return response > 0;
     }
  
-    public static void update(Connection c, String produto, int qtd) throws SQLException {
+    public static boolean update(Connection c, String produto, int qtd) throws SQLException {
         Statement stmt = c.createStatement();
         String sql = "UPDATE ESTOQUE set QTD = " + qtd + " where PRODUTO='"+ produto +"';";
-        stmt.executeUpdate(sql);
+        int response = stmt.executeUpdate(sql);
         c.commit();
         stmt.close();
+        System.out.println("update response="+response);
+        return response > 0;
     }
  
     public static boolean exists(Connection c, String produto) throws SQLException {
@@ -44,19 +49,22 @@ public class DBUtil {
         return qtd;
     }
  
-    public static void list(Connection c) throws SQLException {
+    public static String list(Connection c) throws SQLException {
         Statement stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery( "SELECT * FROM ESTOQUE;" );
- 
+        StringBuilder sb = new StringBuilder();
         while (rs.next()) {
             String produto = rs.getString("produto");
             int qtd  = rs.getInt("qtd");
  
-            System.out.println("Produto: " + produto);
-            System.out.println("Quantidade: " + qtd);
-            System.out.println();
+            sb
+            .append("Produto: " + produto)
+            .append(" - ")
+            .append("Quantidade: " + qtd)
+            .append("\n");
         }
         rs.close();
         stmt.close();
+        return sb.toString();
     }
 }

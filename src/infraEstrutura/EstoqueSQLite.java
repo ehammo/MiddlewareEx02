@@ -7,24 +7,22 @@ import java.sql.Statement;
 import java.sql.SQLException;
  
 public class EstoqueSQLite extends UnicastRemoteObject implements IEstoque {
-    Connection c;
-    Statement stmt;
     
     public EstoqueSQLite() throws RemoteException {
-        this.c = null;
-        this.stmt = null;
+        Connection c = null;
+        Statement stmt = null;
  
         try {
-            this.c = DBUtil.connection();
+            c = DBUtil.connection(true);
  
-            this.stmt = this.c.createStatement();
+            stmt = c.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS ESTOQUE " +
                     "(PRODUTO TEXT PRIMARY KEY NOT NULL," +
                     " QTD INT NOT NULL)";
  
-            this.stmt.executeUpdate(sql);
-            this.stmt.close();
-            this.c.close();
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
@@ -33,17 +31,18 @@ public class EstoqueSQLite extends UnicastRemoteObject implements IEstoque {
  
     public String add(String produto) {
         int qtd =0;
+        boolean response = false;
     	try {
-            this.c = DBUtil.connection();
+            Connection c = DBUtil.connection(false);
            
             if(DBUtil.exists(c, produto)) {
                 qtd = DBUtil.getQtd(c, produto);
-                DBUtil.update(c, produto, qtd + 1);
+                response = DBUtil.update(c, produto, qtd + 1);
             } else {
-                DBUtil.insert(c, produto);
+            	response = DBUtil.insert(c, produto);
             }
             qtd = DBUtil.getQtd(c, produto);
-            this.c.close();
+            c.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -51,18 +50,54 @@ public class EstoqueSQLite extends UnicastRemoteObject implements IEstoque {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "Add " + produto + ", qtd = " + qtd;
+    	if(response) {
+    		return "Add " + produto + ", qtd = " + qtd;
+    	} else {
+    		return "Add " + produto + " Failed.";
+    	}
     }
-
+    
 	@Override
-	public String remove(String item) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public String remove(String produto) throws RemoteException {
+		boolean response = false;
+		int qtd = 0;
+		try {
+            Connection c = DBUtil.connection(false);
+           
+            if(DBUtil.exists(c, produto) && DBUtil.getQtd(c, produto) > 0) {
+                qtd = DBUtil.getQtd(c, produto);
+                response = DBUtil.update(c, produto, qtd - 1);
+            } else {
+                return "Produto " + produto + " não está cadastrado";
+            }
+           
+            c.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+        	e.printStackTrace();
+        }
+		if (response) {
+			return "Produto " + produto + ", qtd = "+ (qtd-1);
+		} else {
+			return "Remoção de " + produto + " falhou";
+		}
+		
 	}
 
 	@Override
 	public String getAll() throws RemoteException {
-		// TODO Auto-generated method stub
+		try {
+            Connection c = DBUtil.connection(false);
+            String response = DBUtil.list(c);
+            c.close();
+            return response;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
