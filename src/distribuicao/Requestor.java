@@ -19,15 +19,15 @@ public class Requestor {
 		
 		Termination termination = new Termination(null);
 		Message msgToBeMarshalled = new Message(0, inv.getOperation(), inv.getParameters(), null);
-		System.out.println("send msg: "+msgToBeMarshalled.toString());
+//		System.out.println("send msg: "+msgToBeMarshalled.toString());
 		byte[] msgToBeCripted = marshaller.marshall(msgToBeMarshalled);
-		System.out.println("marshalled");
+//		System.out.println("marshalled");
 		byte[] cripted = cripto.encript(msgToBeCripted);
-		System.out.println("cripted");
+//		System.out.println("cripted");
 		crh.send(cripted);
-		System.out.println("sent: "+Arrays.toString(cripted));
+//		System.out.println("sent: "+Arrays.toString(cripted));
 		byte[] response = crh.receive();
-		System.out.println("received");
+//		System.out.println("received");
 
 		termination.setResult(marshaller.unmarshall(response));
 		crh.closeConnection();

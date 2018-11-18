@@ -1,14 +1,7 @@
 package aplicacao;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import distribuicao.ClientProxy;
 import distribuicao.EstoqueProxy;
-import distribuicao.Invocation;
-import distribuicao.Requestor;
-import distribuicao.Termination;
-import distribuicao.message.Message;
 import infraEstrutura.IClient;
 
 public class AppClient implements IClient {

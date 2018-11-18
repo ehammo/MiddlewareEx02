@@ -7,6 +7,7 @@ import distribuicao.criptografia.ICripto;
 import distribuicao.criptografia.Marshaller;
 import distribuicao.message.Message;
 import infraEstrutura.Estoque;
+import infraEstrutura.EstoqueSQLite;
 import infraEstrutura.IRequestHandler;
 import infraEstrutura.tcp.TcpServerRequestHandler;
 
@@ -18,7 +19,7 @@ public class Invoker {
 		ICripto cripto = new Cripto();
 		
 		Termination termination = new Termination(null);
-		Estoque estoque = new Estoque();
+		EstoqueSQLite estoque = new EstoqueSQLite();
 		Message msgUncripted = null;
 		IRequestHandler srh = new TcpServerRequestHandler(client.getPort());
 
@@ -26,11 +27,8 @@ public class Invoker {
 			srh.create();
 			System.out.println("Running loop...");
 			byte[] msgToBeUncripted = srh.receive();
-			System.out.println("received: "+Arrays.toString(msgToBeUncripted));
 			byte[] msgToBeUnmarshalled = cripto.decript(msgToBeUncripted);
-			System.out.println("uncripted");
 			msgUncripted = (Message) marshaller.unmarshall(msgToBeUnmarshalled);
-			System.out.println("unmarshalled");
 			String item, result = null;
 			Message reply = null;
 			switch(msgUncripted.getOperation()) {
