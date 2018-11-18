@@ -14,43 +14,51 @@ public class DBUtil {
         return c;
     }
    
-    public static boolean insert(Connection c, String produto) throws SQLException {
-        Statement stmt = c.createStatement();
+    public static boolean insert(String produto) throws SQLException, ClassNotFoundException {
+        Connection c = connection(true);
+    	Statement stmt = c.createStatement();
         String sql = "INSERT INTO ESTOQUE (PRODUTO, QTD) " +
                 "VALUES ('" + produto + "', 1);";
         int response = stmt.executeUpdate(sql);
         stmt.close();
-        System.out.println("insert response="+response);
+        c.close();
         return response > 0;
     }
  
-    public static boolean update(Connection c, String produto, int qtd) throws SQLException {
-        Statement stmt = c.createStatement();
+    public static boolean update(String produto, int qtd) throws SQLException, ClassNotFoundException {
+        Connection c = connection(false);
+    	Statement stmt = c.createStatement();
         String sql = "UPDATE ESTOQUE set QTD = " + qtd + " where PRODUTO='"+ produto +"';";
         int response = stmt.executeUpdate(sql);
         c.commit();
         stmt.close();
-        System.out.println("update response="+response);
+        c.close();
         return response > 0;
     }
  
-    public static boolean exists(Connection c, String produto) throws SQLException {
-        Statement stmt = c.createStatement();
+    public static boolean exists(String produto) throws SQLException, ClassNotFoundException {
+        Connection c = connection(false);
+    	Statement stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery( "SELECT * FROM ESTOQUE WHERE PRODUTO='"+ produto +"';" );
-        return rs.next();
+        boolean response = rs.next();
+        c.close();
+        return response;
     }
  
-    public static int getQtd(Connection c, String produto) throws SQLException {
-        Statement stmt = c.createStatement();
+    public static int getQtd(String produto) throws SQLException, ClassNotFoundException {
+        Connection c = connection(false);
+    	Statement stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery( "SELECT qtd FROM ESTOQUE WHERE PRODUTO='"+ produto +"';" );
         int qtd = rs.next() ? rs.getInt("qtd") : 0;
         rs.close();
         stmt.close();
+        c.close();
         return qtd;
     }
  
-    public static String list(Connection c) throws SQLException {
-        Statement stmt = c.createStatement();
+    public static String list() throws SQLException, ClassNotFoundException {
+        Connection c = connection(false);
+    	Statement stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery( "SELECT * FROM ESTOQUE;" );
         StringBuilder sb = new StringBuilder();
         while (rs.next()) {
@@ -65,6 +73,7 @@ public class DBUtil {
         }
         rs.close();
         stmt.close();
+        c.close();
         return sb.toString();
     }
 }

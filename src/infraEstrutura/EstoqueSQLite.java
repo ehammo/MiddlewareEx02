@@ -33,16 +33,13 @@ public class EstoqueSQLite extends UnicastRemoteObject implements IEstoque {
         int qtd =0;
         boolean response = false;
     	try {
-            Connection c = DBUtil.connection(false);
-           
-            if(DBUtil.exists(c, produto)) {
-                qtd = DBUtil.getQtd(c, produto);
-                response = DBUtil.update(c, produto, qtd + 1);
+            if(DBUtil.exists(produto)) {
+                qtd = DBUtil.getQtd(produto);
+                response = DBUtil.update(produto, qtd + 1);
             } else {
-            	response = DBUtil.insert(c, produto);
+            	response = DBUtil.insert(produto);
             }
-            qtd = DBUtil.getQtd(c, produto);
-            c.close();
+            qtd = DBUtil.getQtd(produto);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -61,18 +58,14 @@ public class EstoqueSQLite extends UnicastRemoteObject implements IEstoque {
 	public String remove(String produto) throws RemoteException {
 		boolean response = false;
 		int qtd = 0;
-		try {
-            Connection c = DBUtil.connection(false);
-           
-            if(DBUtil.exists(c, produto) && DBUtil.getQtd(c, produto) > 0) {
-                qtd = DBUtil.getQtd(c, produto);
-                response = DBUtil.update(c, produto, qtd - 1);
+		try {           
+            if(DBUtil.exists(produto) && DBUtil.getQtd(produto) > 0) {
+                qtd = DBUtil.getQtd(produto);
+                response = DBUtil.update(produto, qtd - 1);
             } else {
                 return "Produto " + produto + " não está cadastrado";
             }
-           
-            c.close();
-        } catch (Exception e) {
+       } catch (Exception e) {
             // TODO: handle exception
         	e.printStackTrace();
         }
@@ -87,10 +80,7 @@ public class EstoqueSQLite extends UnicastRemoteObject implements IEstoque {
 	@Override
 	public String getAll() throws RemoteException {
 		try {
-            Connection c = DBUtil.connection(false);
-            String response = DBUtil.list(c);
-            c.close();
-            return response;
+            return DBUtil.list();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
